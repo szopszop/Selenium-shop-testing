@@ -1,4 +1,4 @@
-package com.selenium.pom;
+package com.selenium.base;
 
 import com.selenium.factory.DriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -18,4 +18,7 @@ public class BaseTest {
     public void quitDriver() {
         driver.quit();
     }
+
+
+
 }
