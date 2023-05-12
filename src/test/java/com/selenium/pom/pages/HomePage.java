@@ -1,6 +1,6 @@
-package com.selenium.pages;
+package com.selenium.pom.pages;
 
-import com.selenium.base.BasePage;
+import com.selenium.pom.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

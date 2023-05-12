@@ -1,6 +1,6 @@
-package com.selenium.base;
+package com.selenium.pom.base;
 
-import com.selenium.factory.DriverManager;
+import com.selenium.pom.factory.DriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
