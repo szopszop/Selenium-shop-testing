@@ -3,10 +3,10 @@ package com.selenium.pom.pages;
 import com.selenium.pom.base.BasePage;
 import com.selenium.pom.objects.BillingAddress;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 
 public class CheckoutPage extends BasePage {
 
@@ -23,8 +23,8 @@ public class CheckoutPage extends BasePage {
     private final By loginButton = By.name("login");
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
     private final By successNotice = By.cssSelector(".woocommerce-notice");
-    private final By countryDropdown = By.id("billing_country");
-    private final By stateDropdown = By.id("billing_state");
+    private final By countryDropdown = By.id("select2-billing_country-container");
+    private final By stateDropdown = By.id("select2-billing_state-container");
     private final By directBankTransfterRadioButton = By.id("payment_method_bacs");
 
     public CheckoutPage(WebDriver driver) {
@@ -44,16 +44,19 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage selectCountry(String countryName) {
-        Select select = new Select(driver.findElement(countryDropdown));
-        select.selectByVisibleText(countryName);
+        wait.until(ExpectedConditions.elementToBeClickable(countryDropdown)).click();
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(
+                By .xpath("//li[text()='" + countryName + "']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", e);
+        e.click();
         return this;
     }
     public CheckoutPage selectState (String stateName) {
-        if (driver.findElement(stateDropdown) != null) {
-            Select select = new Select(driver.findElement(stateDropdown));
-            select.selectByVisibleText(stateName);
-            return this;
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(stateDropdown)).click();
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(
+                By .xpath("//li[text()='" + stateName + "']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", e);
+        e.click();
         return this;
     }
 
@@ -78,11 +81,10 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage enterEmail(String email) {
+    public void enterEmail(String email) {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(emailField));
         element.clear();
         element.sendKeys(email);
-        return this;
     }
 
     public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
